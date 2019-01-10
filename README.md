@@ -39,11 +39,11 @@ apt upgrade
 
 armbian-config
 
-System->Default - install Armbian XFCE powered desktop with web browser and extras
+System->Default - install desktop with web browser and extras
 
 and wait until setup completes and system rebooted
 
-9. Login via SSH
+9. Login via SSH as root
 
 10. NodeJS
 

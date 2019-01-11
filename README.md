@@ -39,7 +39,7 @@ apt upgrade
 
 armbian-config
 
-System->Default - install desktop with web browser and extras
+System->Default - Install desktop with browser and extras
 
 and wait until setup completes and system rebooted
 

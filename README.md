@@ -48,9 +48,12 @@ and wait until setup completes and system rebooted
 10. NodeJS
 
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+
 sudo apt-get install -y nodejs
 
-11. Install MagicMirror
+11. Login via SSH as smartdisplay
+
+12. Install MagicMirror
 
 git clone https://github.com/MichMich/MagicMirror
 
@@ -70,7 +73,7 @@ add
 cd ~/MagicMirror
 DISPLAY=:0 npm start
 
-chmod +x ../mm.sh
+chmod +x /home/smartdisplay/mm.sh
 
 In XFCE Applications->Settings->Session and Startup->Application Autostart->Add
 

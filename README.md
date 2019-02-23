@@ -1,4 +1,4 @@
-#SmartDisplay using BananaPI M2 Zero and 3.5 inch HDMI IPS LCD
+# SmartDisplay using BananaPI M2 Zero and 3.5 inch HDMI IPS LCD
 
 1. Download 2018-07-07-raspbian-jessie-preview-bpi-m2z-sd-emmcfrom
 

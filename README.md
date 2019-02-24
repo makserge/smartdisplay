@@ -159,8 +159,21 @@ sudo apt-get autoremove
 
 sudo ln -s /usr/local/bin/python3.6 /usr/bin/python3
 
+18. Update Swig
 
-16. Rhasspy setup
+sudo apt install libpcre3 libpcre3-dev
+
+wget http://prdownloads.sourceforge.net/swig/swig-3.0.5.tar.gz
+tar xvzf swig-3.0.5.tar.gz
+cd swig-3.0.5
+./configure --prefix=$HOME --with-perl5=/usr/bin/perl --with-python=/usr/local/bin/python3.6
+make
+make check
+sudo make install
+cd ..
+rm -rf swig-3.0.5.tar.gz
+
+19. Rhasspy setup
 
 git clone https://github.com/synesthesiam/rhasspy.git
 
@@ -189,7 +202,7 @@ sudo apt-get install -y build-essential autoconf libtool automake bison \
 
 ./create-venv.sh
 
- 17. Rhasspy start
+ 20. Rhasspy start
  
  /home/smartdisplay/rhasspy/run-venv.sh
  

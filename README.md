@@ -37,7 +37,18 @@ sudo apt-get install -y nodejs
 
 7. Add user smartdisplay
 
-adduser smartdisplay
+adduser smartdisplay sudo
+
+sudo nano /etc/sudoers
+
+add 
+
+smartdisplay    ALL=(ALL)       ALL
+
+after
+
+root    ALL=(ALL:ALL) ALL
+
 
 8. Login via SSH as smartdisplay
 
@@ -119,4 +130,25 @@ add at top
 @xset s noblank
 @xset s off
 @xset -dpms
+
+15. Expand root fs to SD size
+
+sudo raspi-config --expand-rootfs
+
+16. Install Python 3.7
+
+sudo apt-get update -y
+sudo apt-get install build-essential tk-dev libncurses5-dev libncursesw5-dev libreadline6-dev libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev libffi-dev -y
+
+16. Rhasspy setup
+
+git clone https://github.com/synesthesiam/rhasspy.git
+
+cd rhasspy/
+./create-venv.sh
+
+ 17. Rhasspy start
  
+ /home/smartdisplay/rhasspy/run-venv.sh
+ 
+ web interface will be available at http://localhost:12101

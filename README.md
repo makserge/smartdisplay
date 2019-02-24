@@ -135,15 +135,58 @@ add at top
 
 sudo raspi-config --expand-rootfs
 
-16. Install Python 3.7
+16. Install Python 3.6
 
-sudo apt-get update -y && sudo apt-get install build-essential tk-dev libncurses5-dev libncursesw5-dev libreadline6-dev libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev libffi-dev -y && wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz && tar xf Python-3.7.0.tar.xz && cd Python-3.7.0 && ./configure && make -j 4 && sudo make altinstall && cd .. && sudo rm -r Python-3.7.0 && rm Python-3.7.0.tar.xz && sudo apt-get --purge remove build-essential tk-dev libncurses5-dev libncursesw5-dev libreadline6-dev libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev libffi-dev -y && sudo apt-get autoremove -y && sudo apt-get clean
+sudo apt-get update -y
+sudo apt-get install build-essential tk-dev libncurses5-dev libncursesw5-dev libreadline6-dev libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev libffi-dev -y
+wget https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz
+tar xf Python-3.6.0.tar.xz
+cd Python-3.6.0
+./configure
+make -j 4
+sudo make altinstall
+cd ..
+sudo rm -r Python-3.6.0
+rm Python-3.6.0.tar.xz
+sudo apt-get --purge remove build-essential tk-dev libncurses5-dev libncursesw5-dev libreadline6-dev libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev libffi-dev -y
+sudo apt-get autoremove -y
+sudo apt-get clean
+
+17. Remove Python 3.4
+
+sudo apt remove python3
+sudo apt-get autoremove
+
+sudo ln -s /usr/local/bin/python3.6 /usr/bin/python3
+
 
 16. Rhasspy setup
 
 git clone https://github.com/synesthesiam/rhasspy.git
 
 cd rhasspy/
+
+nano create-venv.sh
+
+replace
+
+sudo apt-get install -y python3 python3-pip python3-venv python3-dev \
+     build-essential autoconf libtool automake bison \
+     sox espeak swig portaudio19-dev \
+     libatlas-base-dev \
+     sphinxbase-utils sphinxtrain pocketsphinx \
+     jq checkinstall
+
+
+to 
+
+sudo apt-get install -y build-essential autoconf libtool automake bison \
+     sox espeak swig portaudio19-dev \
+     libatlas-base-dev \
+     sphinxbase-utils sphinxtrain pocketsphinx \
+     jq checkinstall
+
+
 ./create-venv.sh
 
  17. Rhasspy start

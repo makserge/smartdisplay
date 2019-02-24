@@ -110,4 +110,13 @@ add at top
 
 @unclutter -display :0 -idle 3 -root -noevents
 
+14. Disable scrren off
+ 
+sudo nano /home/smartdisplay/.config/lxsession/LXDE-pi/autostart
+ 
+add at top
+ 
+@xset s noblank
+@xset s off
+@xset -dpms
  

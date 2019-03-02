@@ -137,43 +137,35 @@ sudo raspi-config --expand-rootfs
 
 16. Install Python 3.6
 
-sudo apt-get update -y
-sudo apt-get install build-essential tk-dev libncurses5-dev libncursesw5-dev libreadline6-dev libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev libffi-dev -y
-wget https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz
-tar xf Python-3.6.0.tar.xz
-cd Python-3.6.0
-./configure
-make -j 4
-sudo make altinstall
-cd ..
-sudo rm -r Python-3.6.0
-rm Python-3.6.0.tar.xz
-sudo apt-get --purge remove build-essential tk-dev libncurses5-dev libncursesw5-dev libreadline6-dev libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev libffi-dev -y
-sudo apt-get autoremove -y
-sudo apt-get clean
+wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-armv7l.sh
+sudo md5sum Miniconda3-latest-Linux-armv7l.sh # (optional) check md5
+sudo /bin/bash Miniconda3-latest-Linux-armv7l.sh -> change default directory to /home/smartdisplay/miniconda3
+sudo nano /home/smartdisplay/.bashrc # -> add: export PATH="/home/smartdisplay/miniconda3/bin:$PATH"
+conda config --add channels rpi
+sudo chown -R smartdisplay miniconda3
 
-17. Remove Python 3.4
+sudo reboot -h now
+conda install python=3.6
+sudo ln -s /home/smartdisplay/miniconda3/bin/python3.6-config /home/smartdisplay/miniconda3/bin/python-config
+sudo ln -s /home/smartdisplay/miniconda3/bin/python3-config /usr/bin/python3-config
 
-sudo apt remove python3
-sudo apt-get autoremove
 
-sudo ln -s /usr/local/bin/python3.6 /usr/bin/python3
-
-18. Update Swig
+17. Update Swig
 
 sudo apt install libpcre3 libpcre3-dev
 
-wget http://prdownloads.sourceforge.net/swig/swig-3.0.5.tar.gz
-tar xvzf swig-3.0.5.tar.gz
-cd swig-3.0.5
-./configure --prefix=$HOME --with-perl5=/usr/bin/perl --with-python=/usr/local/bin/python3.6
+wget http://prdownloads.sourceforge.net/swig/swig-3.0.10.tar.gz
+tar xvzf swig-3.0.10.tar.gz
+cd swig-3.0.10
+./configure
 make
-make check
 sudo make install
 cd ..
-rm -rf swig-3.0.5.tar.gz
+rm -rf swig-3.0.10.tar.gz
 
-19. Rhasspy setup
+sudo rm -rf /usr/bin/swig
+
+18. Rhasspy setup
 
 git clone https://github.com/synesthesiam/rhasspy.git
 
@@ -202,7 +194,7 @@ sudo apt-get install -y build-essential autoconf libtool automake bison \
 
 ./create-venv.sh
 
- 20. Rhasspy start
+19. Rhasspy start
  
  /home/smartdisplay/rhasspy/run-venv.sh
  

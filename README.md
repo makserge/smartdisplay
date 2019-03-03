@@ -193,19 +193,9 @@ git clone https://github.com/synesthesiam/rhasspy.git
 
 cd rhasspy/
 
-nano create-venv.sh
+/* create-venv.sh content adopted to anaconda */ 
 
-replace
-
-sudo apt-get install -y python3 python3-pip python3-venv python3-dev \
-     build-essential autoconf libtool automake bison \
-     sox espeak swig portaudio19-dev \
-     libatlas-base-dev \
-     sphinxbase-utils sphinxtrain pocketsphinx \
-     jq checkinstall
-
-
-to 
+sudo apt-get update -y
 
 sudo apt-get install -y build-essential autoconf libtool automake bison \
      sox espeak swig portaudio19-dev \
@@ -213,8 +203,42 @@ sudo apt-get install -y build-essential autoconf libtool automake bison \
      sphinxbase-utils sphinxtrain pocketsphinx \
      jq checkinstall
 
+conda create -n venv python=3.6
+source activate venv
 
-./create-venv.sh
+python3 -m pip install wheel
+python3 -m pip install -r requirements.txt
+python3 -m pip install etc/pocketsphinx-python.tar.gz
+python3 -m pip install etc/snowboy-1.3.0.tar.gz
+
+wget -O "phonetisaurus.deb" https://github.com/synesthesiam/phonetisaurus-2013/releases/download/v1.0-armhf/phonetisaurus_2013-1_armhf.deb
+sudo dpkg -i phonetisaurus.deb
+rm -rf phonetisaurus.deb
+
+cd etc
+
+tar -xf mitlm-0.4.2.tar.xz && \
+        cd mitlm-0.4.2 && \
+        ./configure && \
+        make -j 4 && \
+        sudo checkinstall --pkgname=mitlm --default
+cd..
+sudo rm -rf mitlm-0.4.2 
+
+tar -xf precise-engine_0.2.0_armhf.tar.gz
+sudo ln -s precise-engine/precise-engine /usr/local/bin/precise-engine
+sudo ldconfig
+cd ..
+
+nano run-venv.sh
+
+replace 
+
+source .venv/bin/activate
+
+to 
+
+source activate venv
 
 19. Put Snowboy wake word to
 
@@ -226,4 +250,4 @@ sudo apt-get install -y build-essential autoconf libtool automake bison \
  
  web interface will be available at http://localhost:12101
  
- 21. Go to Settings -> en -> Wake Word -> Select "Use snowboy on this device" and put wake word file to model name field-> Save settings
+21. Go to Settings -> en -> Wake Word -> Select "Use snowboy on this device" and put wake word file to model name field-> Save settings

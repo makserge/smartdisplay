@@ -135,6 +135,28 @@ add at top
 
 sudo raspi-config --expand-rootfs
 
+16. Setup audio config
+
+sudo nano /usr/share/alsa/alsa.conf
+
+comment out 
+
+pcm.front cards.pcm.front
+pcm.rear cards.pcm.rear
+pcm.center_lfe cards.pcm.center_lfe
+pcm.side cards.pcm.side
+pcm.surround21 cards.pcm.surround21
+pcm.surround40 cards.pcm.surround40
+pcm.surround41 cards.pcm.surround41
+pcm.surround50 cards.pcm.surround50
+pcm.surround51 cards.pcm.surround51
+pcm.surround71 cards.pcm.surround71
+pcm.iec958 cards.pcm.iec958
+pcm.spdif iec958
+pcm.hdmi cards.pcm.hdmi
+pcm.modem cards.pcm.modem
+pcm.phoneline cards.pcm.phoneline
+
 16. Install Python 3.6
 
 wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-armv7l.sh

@@ -194,8 +194,14 @@ sudo apt-get install -y build-essential autoconf libtool automake bison \
 
 ./create-venv.sh
 
-19. Rhasspy start
+19. Put Snowboy wake word to
+
+/home/smartdisplay/rhasspy/profiles/en
+
+20. Rhasspy start
  
  /home/smartdisplay/rhasspy/run-venv.sh
  
  web interface will be available at http://localhost:12101
+ 
+ 21. Go to Settings -> en -> Wake Word -> Select "Use snowboy on this device" and put wake word file to model name field-> Save settings

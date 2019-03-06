@@ -157,6 +157,53 @@ pcm.hdmi cards.pcm.hdmi
 pcm.modem cards.pcm.modem
 pcm.phoneline cards.pcm.phoneline
 
+nano ~/.asoundrc
+
+replace
+
+pcm.!default {
+        type hw
+        card 0
+}
+
+ctl.!default {
+        type hw
+        card 0
+}
+
+
+to this
+
+pcm.array {
+  type hw
+  card CameraB409241
+}
+
+pcm.cap {
+  type plug
+  slave.pcm "array"
+  slave.channels 4
+  ttable {
+    0.0 30.0
+    1.1 30.0
+  }
+}
+pcm.!default {
+    type asym
+     playback.pcm {
+      type plug
+      slave.pcm "hw:0,0"
+     }
+     capture.pcm {
+      type plug
+      slave.pcm "cap"
+    }
+}
+ctl.!default {
+  type hw
+  card 0
+}
+
 16. Install Python 3.6
 
 wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-armv7l.sh

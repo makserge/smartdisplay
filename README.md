@@ -204,6 +204,11 @@ ctl.!default {
   card 0
 }
 
+Test record and playback
+
+arecord -r 16000 -f S16_LE -c2 testS16_LE.wav
+aplay testS16_LE.wav
+
 16. Install Python 3.6
 
 wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-armv7l.sh

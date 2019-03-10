@@ -115,6 +115,33 @@ ctl.!default {
 }
 
 
+sudo nano /usr/share/alsa/alsa.conf
+
+comment out 
+
+defaults.pcm.surround21.card defaults.pcm.card
+defaults.pcm.surround41.card defaults.pcm.card
+defaults.pcm.surround50.card defaults.pcm.card
+defaults.pcm.surround51.card defaults.pcm.card
+defaults.pcm.surround71.card defaults.pcm.card
+
+pcm.front cards.pcm.front
+pcm.rear cards.pcm.rear
+pcm.center_lfe cards.pcm.center_lfe
+pcm.side cards.pcm.side
+pcm.surround21 cards.pcm.surround21
+pcm.surround40 cards.pcm.surround40
+pcm.surround41 cards.pcm.surround41
+pcm.surround50 cards.pcm.surround50
+pcm.surround51 cards.pcm.surround51
+pcm.surround71 cards.pcm.surround71
+pcm.iec958 cards.pcm.iec958
+pcm.spdif iec958
+pcm.hdmi cards.pcm.hdmi
+pcm.modem cards.pcm.modem
+pcm.phoneline cards.pcm.phoneline
+
+
 sudo reboot
 
 
@@ -122,3 +149,62 @@ sudo reboot
  
 arecord -f S16_LE -r 16000 -c 1 --buffer-size=204800 -v sample.wav 
 aplay sample.wav 
+
+16. Install snowboy
+
+sudo apt install libatlas-base-dev portaudio19-dev python-dev python-pip -y
+pip install --upgrade pip
+
+python -m pip uninstall pip && sudo apt install python-pip --reinstall
+
+pip install setuptools
+pip install pyaudio
+
+wget http://downloads.sourceforge.net/swig/swig-3.0.10.tar.gz
+sudo apt install libpcre3 libpcre3-dev
+tar xvzf swig-3.0.10.tar.gz
+cd swig-3.0.10
+./configure --prefix=/usr                  \
+        --without-clisp                    \
+        --without-maximum-compile-warnings &&
+make
+sudo make install
+cd ..
+
+wget https://github.com/Kitt-AI/snowboy/archive/master.zip
+unzip master.zip
+mv snowboy-master snowboy
+cd snowboy
+
+cd swig/Python
+make
+cd ..
+cd ..
+
+17. Test snowboy
+
+python examples/Python/demo2.py resources/models/snowboy.umdl resources/models/subex.umdl
+
+18. Test google speech recognition
+
+sudo apt install flac
+
+pip install monotonic
+pip --no-cache-dir install SpeechRecognition
+
+pip install --upgrade google-api-python-client
+
+
+python examples/Python/demo4.py resources/models/smart_mirror.umdl
+
+19. Set language for Google speech to text
+
+nano examples/Python/demo4.py
+
+change
+
+print(r.recognize_google(audio))
+
+to 
+
+print(r.recognize_google(audio, language="ru-RU"))

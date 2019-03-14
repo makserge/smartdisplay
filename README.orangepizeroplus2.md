@@ -186,19 +186,45 @@ sudo reboot
 arecord -f S16_LE -r 16000 -c 1 --buffer-size=204800 -v sample.wav 
 aplay sample.wav 
 
-18. Rhasspy setup
+18. Get Rhasspy
 
 git clone https://github.com/synesthesiam/rhasspy.git
 
 cd rhasspy/
+
+19. Patch Snowboy for arm64
+
+tar -xf etc/snowboy-1.3.0.tar.gz
+cd snowboy-1.3.0/swig/Python3
+
+nano Makefile
+
+replace 
+SNOWBOYDETECTLIBFILE = $(TOPDIR)/lib/ubuntu64/libsnowboy-detect.a
+
+to
+SNOWBOYDETECTLIBFILE = $(TOPDIR)/lib/aarch64-ubuntu1604/libsnowboy-detect.a
+
+cd ..
+cd..
+cd..
+
+mv etc/snowboy-1.3.0.tar.gz etc/snowboy-1.3.0.tar.gz.old
+
+tar -zcf etc/snowboy-1.3.0.tar.gz snowboy-1.3.0/
+
+rm -rf snowboy-1.3.0
+
+20. Setup Rhasspy
 ./create-venv.sh
 
-19. Put Snowboy wake word to
+
+21. Put Snowboy wake word to
 
 /home/smartdisplay/rhasspy/profiles/en
 
-20. Rhasspy start
+22. Start Rhasspy
  
 /home/smartdisplay/rhasspy/run-venv.sh
  
- web interface will be available at http://localhost:12101
+Web interface will be available at http://localhost:12101

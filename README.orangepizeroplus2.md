@@ -188,16 +188,29 @@ aplay sample.wav
 
 18. Get Rhasspy
 
+19. Tempoarary change gcc to 4.8
+
+sudo apt install g++-4.8
+
+cd /usr/bin
+
+sudo rm -rf gcc
+sudo ln -sf gcc-4.8 gcc
+sudo rm -r g++
+sudo ln -sf g++-4.8 g++
+
+
+ gcc -> gcc-7
+g++ -> g++-7
 git clone https://github.com/synesthesiam/rhasspy.git
 
 cd rhasspy/
 
-19. Patch Snowboy for arm64
+20. Patch Snowboy for arm64
 
 tar -xf etc/snowboy-1.3.0.tar.gz
-cd snowboy-1.3.0/swig/Python3
 
-nano Makefile
+nano snowboy-1.3.0/swig/Python3/Makefile
 
 replace 
 SNOWBOYDETECTLIBFILE = $(TOPDIR)/lib/ubuntu64/libsnowboy-detect.a
@@ -215,15 +228,24 @@ tar -zcf etc/snowboy-1.3.0.tar.gz snowboy-1.3.0/
 
 rm -rf snowboy-1.3.0
 
-20. Setup Rhasspy
+21.Change gcc to 7
+
+cd /usr/bin
+
+sudo rm -rf gcc
+sudo ln -sf gcc-7 gcc
+sudo rm -r g++
+sudo ln -sf g++-7 g++
+
+22. Setup Rhasspy
 ./create-venv.sh
 
 
-21. Put Snowboy wake word to
+23. Put Snowboy wake word to
 
 /home/smartdisplay/rhasspy/profiles/en
 
-22. Start Rhasspy
+24. Start Rhasspy
  
 /home/smartdisplay/rhasspy/run-venv.sh
  

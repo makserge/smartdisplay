@@ -1,0 +1,80 @@
+How to install Google Play on Android 7.1
+
+1. Download open_gapps-arm64-7.1-pico-20200830.zip from OpenGAPPS (https://opengapps.org/)
+
+Platform:ARM64, Android:7.1, Variant:pico
+
+2. Move open_gapps-arm64-7.1-pico-20200830.zip to Ubuntu computer.
+
+3. Install package lzip:
+
+sudo apt update
+sudo apt install lzip unzip
+
+4. Download File: Android Extract.zip, extract file extract.sh and put it to folder next to open_gapps-arm64-7.1-pico-20200830.zip.
+
+5. Fix script:
+
+replace
+
+lzip -k -d -f gmscore-arm.tar.lz
+tar xvf gmscore-arm.tar
+
+to 
+
+lzip -k -d -f gmscore-arm64.tar.lz
+tar xvf gmscore-arm64.tar
+
+replace 
+
+mv ./$temp_path/Core/gmscore-arm/nodpi/priv-app/PrebuiltGmsCore/PrebuiltGmsCore.apk ./$dest_path/
+
+to 
+
+mv ./$temp_path/Core/gmscore-arm64/nodpi/priv-app/PrebuiltGmsCore/PrebuiltGmsCore.apk ./$dest_path/
+
+5. Extract Google play store apks from open_gapps-arm64-7.1-pico-20200830.zip
+
+sh ./extract.sh open_gapps-arm64-7.1-pico-20200830.zip
+
+6. Go to APK_file folder
+
+cd APK_file
+
+7. Connect to board's adb over Wi-Fi:
+
+Run on machine with direct USB connection:
+
+Get board IP
+
+adb shell ip route | awk '{print $9}' 
+
+Enable adb over network
+
+adb tcpip 555
+
+8. In Ubuntu enter the following commands to push Google Play apks into system.
+
+adb connect 192.168.31.122
+adb root
+adb connect 192.168.31.122
+adb remount
+adb push GoogleLoginService.apk /system/priv-app/
+adb push GoogleServicesFramework.apk /system/priv-app/
+adb push Phonesky.apk /system/priv-app/
+adb push PrebuiltGmsCore.apk /system/priv-app/
+adb push GoogleCalendarSyncAdapter.apk /system/priv-app/
+adb push GoogleContactsSyncAdapter.apk /system/priv-app/
+adb reboot
+
+9. Download File:Android Fix permissions.zip and extract it to fix_permissions.sh and put it to folder next to open_gapps-arm64-7.1-pico-20200830.zip.
+
+10. In Ubuntu fix permissions
+
+adb connect 192.168.31.122
+adb root
+adb connect 192.168.31.122
+adb remount
+adb push fix_permissions.sh /sdcard/
+adb shell sh /sdcard/fix_permissions.sh
+

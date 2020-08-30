@@ -1,0 +1,56 @@
+1. Get Google app from Google Play Store (11.24.10.21.arm)
+
+2. Remount / to RW
+
+adb root
+adb remount
+
+3. Pull Google app from device
+ 
+adb pull /data/app/com.google.android.googlequicksearchbox-1/base.apk
+
+4. Rename base.apk to Velvet.apk
+
+5. Drop installed Google app
+
+adb shell
+rm -rf /data/app/com.google.android.googlequicksearchbox-1
+
+6. Create Google priv-app folder
+
+mkdir /system/priv-app/Velvet/
+chmod 755 /system/priv-app/Velvet/
+
+7. Push Velvet.apk to priv-app folder
+
+adb push Velvet.apk /system/priv-app/Velvet/
+adb shell
+chmod 644 /system/priv-app/Velvet/Velvet.apk
+
+8. Get build.prop from device
+
+adb pull /system/build.prop
+
+9. Update build.prop by adding to the end of file
+
+ro.opa.eligible_device=true
+
+10. Push build.prop to device
+
+adb push build.prop /system/
+
+11. Reboot device
+
+adb reboot
+
+12. Switch system language to Russian
+13. Open Google app и go to settings: More->Settings->Voice (Еще -> Настройки -> Голосовой ввод)
+14. In language section set: Default language Russian. Additional: English (US)
+15. In "Hey Google" section press "Ok Google" detection
+16. In "Voice Match" section enable "Hey Google" switch
+17. Press Next
+18. Press Confirm
+19. Allow record audio permission
+20. 3 times say "Ok Google"
+21. Press Next
+22. Press Finish
